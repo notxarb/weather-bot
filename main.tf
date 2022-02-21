@@ -24,6 +24,12 @@ provider "aws" {
   region = "us-west-2"
 }
 
+variable "SLACK_BOT_TOKEN" { type = string }
+
+variable "SLACK_APP_TOKEN" { type = string }
+
+variable "SLACK_BOT_TOKEN" { type = string }
+
 resource "random_pet" "sg" {}
 
 locals {
