@@ -60,6 +60,9 @@ data "cloudinit_config" "weather-bot" {
       #!/bin/bash
       pip install slack_bolt requests
       cd /app/
+      export ACCUWEATHER_API_KEY=${var.SLACK_BOT_TOKEN}
+      export SLACK_APP_TOKEN=${var.SLACK_APP_TOKEN}
+      export SLACK_BOT_TOKEN=${var.SLACK_BOT_TOKEN}
       nohup python3 app.py &
     EOF
   }
