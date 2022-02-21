@@ -30,16 +30,16 @@ locals {
   cloud_config_config = <<-END
     #cloud-config
     ${jsonencode({
-      write_files = [
-        {
-          path        = "/app/app.py"
-          permissions = "0644"
-          owner       = "root:root"
-          encoding    = "b64"
-          content     = filebase64("${path.module}/app.py")
-        },
-      ]
-    })}
+  write_files = [
+    {
+      path        = "/app/app.py"
+      permissions = "0644"
+      owner       = "root:root"
+      encoding    = "b64"
+      content     = filebase64("${path.module}/app.py")
+    },
+  ]
+})}
   END
 }
 
@@ -56,7 +56,7 @@ data "cloudinit_config" "weather-bot" {
   part {
     content_type = "text/x-shellscript"
     filename     = "weather-bot.sh"
-    content  = <<-EOF
+    content      = <<-EOF
       #!/bin/bash
       pip install slack_bolt requests
       cd /app/
@@ -78,5 +78,5 @@ resource "aws_security_group" "weather-bot-sg" {
 }
 
 output "web-bot-address" {
-  value = "${aws_instance.weather-bot.public_dns}"
+  value = aws_instance.weather-bot.public_dns
 }
