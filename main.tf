@@ -64,6 +64,8 @@ data "cloudinit_config" "weather-bot" {
     filename     = "weather-bot.sh"
     content      = <<-EOF
       #!/bin/bash
+      apt update
+      apt install -y python3 python3-pip
       pip install slack_bolt requests
       cd /app/
       export ACCUWEATHER_API_KEY=${var.ACCUWEATHER_API_KEY}
