@@ -79,6 +79,7 @@ data "cloudinit_config" "weather-bot" {
 resource "aws_instance" "weather-bot" {
   ami                    = "ami-0637e7dc7fcc9a2d9"
   instance_type          = "t2.micro"
+  key_name               = "weather-bot"
   vpc_security_group_ids = [aws_security_group.weather-bot-sg.id]
 
   user_data = data.cloudinit_config.weather-bot.rendered
@@ -86,6 +87,14 @@ resource "aws_instance" "weather-bot" {
 
 resource "aws_security_group" "weather-bot-sg" {
   name = "${random_pet.sg.id}-sg"
+
+  # SSH access from the VPC
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 }
 
 output "web-bot-address" {
