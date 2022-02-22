@@ -88,12 +88,21 @@ resource "aws_instance" "weather-bot" {
 resource "aws_security_group" "weather-bot-sg" {
   name = "${random_pet.sg.id}-sg"
 
-  # SSH access from the VPC
+  # SSH access to the VPC
   ingress {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  # allow outgoing connections
+  egress {
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
   }
 }
 
