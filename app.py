@@ -10,7 +10,7 @@ accuweather_api_key = os.environ.get("ACCUWEATHER_API_KEY")
 @app.command("/weather")
 def get_weather(ack, respond, command):
     ack()
-    respond(f"looking up weather for {command['text']}...")
+    respond(f"looking up weather for {command['text']} ... (this might take a while)")
     # Look up the location from accuweather
     location_url = f"http://dataservice.accuweather.com/locations/v1/postalcodes/search?apikey={accuweather_api_key}&q={command['text']}"
     location_response = requests.get(location_url)
