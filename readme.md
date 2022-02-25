@@ -17,3 +17,16 @@ The following variables need to be configured in terraform cloud:
 * ACCUWEATHER_API_KEY - Accuweather API key
 * SLACK_APP_TOKEN - Slack app token
 * SLACK_BOT_TOKEN - Slack bot token
+
+This can also be run locally using docker.
+First, set the environment variables in the .env file. Use the .env.example file as a template.
+
+To build this image, run the following:
+```
+docker build -t weather-bot .
+```
+
+Run it to test it out:
+```
+docker run --env-file=.env weather-bot
+```
